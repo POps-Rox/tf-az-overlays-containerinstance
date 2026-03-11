@@ -20,7 +20,7 @@ module "mod_aci" {
   log_analytics_workspace_id  = azurerm_log_analytics_workspace.aci-log.workspace_id
   log_analytics_workspace_key = azurerm_log_analytics_workspace.aci-log.primary_shared_key
 
-  vnet_integration_enabled = false # Enable VNet integration. Default is false, which means public IP
+  vnet_integration_enabled    = false # Enable VNet integration. Default is false, which means public IP
   dns_name_label              = "aci-label-${random_id.example.hex}"
   dns_name_label_reuse_policy = "TenantReuse"
 

@@ -6,7 +6,7 @@ module "mod_aci" {
   #version = "x.x.x"
   source = "../../.."
 
-  depends_on = [ azurerm_resource_group.aci-network-rg ]
+  depends_on = [azurerm_resource_group.aci-network-rg]
 
   # Resource Group, location, VNet and Subnet details
   existing_resource_group_name = azurerm_resource_group.aci-network-rg.name
