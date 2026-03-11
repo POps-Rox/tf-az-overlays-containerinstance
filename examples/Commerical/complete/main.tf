@@ -2,7 +2,7 @@
 # Licensed under the MIT License.
 
 module "mod_aci" {
-  #source  = "azurenoops/overlays-container-instance/azurerm"
+  #source  = "github.com/POps-Rox/tf-az-overlays-containerinstance"
   #version = "x.x.x"
   source = "../../.."
 

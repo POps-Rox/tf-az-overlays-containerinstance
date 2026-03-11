@@ -24,7 +24,7 @@ resource "azurerm_log_analytics_workspace" "aci-log" {
 }
 
 module "aci-storage-account" {
-  source  = "azurenoops/overlays-storage-account/azurerm"
+  source  = "github.com/POps-Rox/tf-az-overlays-storageaccount"
   version = "1.0.0"
 
   depends_on = [azurerm_resource_group.aci-network-rg]
@@ -59,7 +59,7 @@ resource "azurerm_storage_share" "aci-storage-share" {
 }
 
 module "aci-acr" {
-  source  = "azurenoops/overlays-container-registry/azurerm"
+  source  = "github.com/POps-Rox/tf-az-overlays-containerregistry"
   version = "2.0.0"
 
   depends_on = [azurerm_resource_group.aci-network-rg]
