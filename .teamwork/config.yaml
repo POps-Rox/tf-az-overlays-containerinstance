@@ -1,0 +1,102 @@
+# .teamwork/config.yaml — Project orchestration settings
+#
+# This file configures how the orchestrator coordinates agents and workflows.
+
+# Project identity
+project:
+  name: "tf-az-overlays-containerinstance"
+  repo: "POps-Rox/tf-az-overlays-containerinstance"
+
+# Active roles — only these roles participate in workflows
+roles:
+  core:
+    - planner
+    - architect
+    - coder
+    - tester
+    - reviewer
+    - security-auditor
+    - documenter
+    - orchestrator
+  optional:
+    - devops
+    - refactorer
+
+# Workflow customizations
+workflows:
+  skip_steps:
+    documentation:
+      - security-auditor            # Docs-only changes don't need security audit
+    spike:
+      - tester                      # Spikes produce research, not testable code
+      - security-auditor
+  extra_gates: {}
+
+# Quality gate defaults (apply to all workflows unless overridden)
+quality_gates:
+  handoff_complete: true
+  tests_pass: true                  # Go tests in test/e2e/ and test/upgrade/
+  lint_pass: true                   # pre-commit hooks configured
+
+# Memory settings
+memory:
+  archive_threshold: 50
+  sync_to_memory_md: true
+
+# Model tier configuration
+model_tiers:
+  premium: "claude-sonnet-4"
+  standard: "claude-sonnet-4"
+  fast: "claude-haiku-4.5"
+
+# MCP server definitions
+mcp_servers:
+  github:
+    description: "GitHub repos, PRs, issues, CI workflows, Dependabot alerts"
+    url: "https://api.githubcopilot.com/mcp/"
+    roles: [planner, architect, coder, tester, reviewer, security-auditor, documenter, orchestrator]
+    env_vars: [GH_TOKEN]
+    install: "gh extension install github/gh-mcp"
+
+  terraform:
+    description: "Terraform Registry lookups, provider docs, module search"
+    command: "npx -y terraform-mcp-server@latest"
+    roles: [devops, architect, coder]
+    env_vars: [TF_TOKEN]
+    install: "npx -y terraform-mcp-server@latest"
+
+  context7:
+    description: "Real-time library documentation — prevents API hallucination"
+    url: "https://mcp.context7.com/mcp"
+    roles: [architect, coder, documenter]
+    env_vars: []
+    install: "npx -y @upstash/context7-mcp"
+
+  semgrep:
+    description: "SAST security scanning — 5000+ rules across 30+ languages"
+    command: "uvx semgrep-mcp"
+    roles: [security-auditor, reviewer, coder]
+    env_vars: [SEMGREP_APP_TOKEN]
+    install: "pip install semgrep-mcp"
+
+  osv:
+    description: "Open Source Vulnerability database — CVEs by package and version"
+    command: "uvx osv-mcp"
+    roles: [security-auditor, reviewer]
+    env_vars: []
+    install: "pip install osv-mcp"
+
+  commits:
+    description: "Conventional commit message generation and validation from diffs"
+    command: "uvx teamwork-mcp-commits"
+    roles: [coder, reviewer, orchestrator]
+    env_vars: []
+    install: "pip install teamwork-mcp-commits"
+
+  adr:
+    description: "Architecture Decision Record search, creation, and management"
+    command: "uvx teamwork-mcp-adr"
+    roles: [architect, orchestrator, coder]
+    env_vars: []
+    install: "pip install teamwork-mcp-adr"
+
