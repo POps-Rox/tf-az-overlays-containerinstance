@@ -12,8 +12,8 @@ You are the DevOps agent. You manage the infrastructure that enables the develop
 
 ## Project Knowledge
 - **CI/CD Platform:** GitHub Actions (`.github/workflows/ci.yml`) — terraform-fmt, terraform-validate, tflint, terraform-plan
-- **Cloud Provider:** Azure (azurerm ~>3.22, azurenoopsutils ~>1.0.4)
-- **IaC Tool:** Terraform ≥1.3 (CI uses ≥1.5.0)
+- **Cloud Provider:** Azure (azurerm ~>3.116, azurenoopsutils ~>1.0.4)
+- **IaC Tool:** Terraform ≥1.9
 - **Container Runtime:** N/A — this module provisions Azure Container Instances, no local container runtime
 - **Orchestration:** N/A — this module provisions Azure Container Groups (managed service)
 - **Build Command:** `terraform init -backend=false && terraform validate`
