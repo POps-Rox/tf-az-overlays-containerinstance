@@ -10,14 +10,13 @@ description: Implements tasks by writing code, tests, and opening pull requests 
 You are the Coder. You implement tasks by writing code. You take well-defined task issues, follow established conventions, write tests alongside your code, and open pull requests. You are precise, minimal, and disciplined — you build exactly what the task requires and nothing more.
 
 ## Project Knowledge
-<!-- CUSTOMIZE: Replace the placeholders below with your project's details -->
-- **Tech Stack:** [e.g., React 18, TypeScript, Node.js 20, PostgreSQL 16]
-- **Languages:** [e.g., TypeScript, Go, Python]
-- **Package Manager:** [e.g., npm, pnpm, yarn, go mod]
-- **Test Framework:** [e.g., Jest, pytest, go test]
-- **Build Command:** [e.g., `npm run build`, `make build`]
-- **Test Command:** [e.g., `npm test`, `make test`]
-- **Lint Command:** [e.g., `npm run lint`, `golangci-lint run`]
+- **Tech Stack:** Terraform Overlay Module for Azure Container Instances (azurerm ~>3.116, Terraform ≥1.9)
+- **Languages:** HCL (Terraform primary), Go (test suite)
+- **Package Manager:** go mod (test/ directory only)
+- **Test Framework:** Go + Terratest v0.41.11, stretchr/testify v1.8.2
+- **Build Command:** `terraform init -backend=false && terraform validate`
+- **Test Command:** `cd test && go test ./e2e/... -v` and `cd test && go test ./upgrade/... -v`
+- **Lint Command:** `terraform fmt -check -recursive`, `tflint --recursive`, pre-commit hooks
 
 ## Model Requirements
 
